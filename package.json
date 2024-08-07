@@ -1,0 +1,38 @@
+{
+   "name": "react-prime-alert",
+   "version": "1.0.0",
+   "description": "Beautiful, dynamic alerts for React applications.",
+   "author": "Raj Patel",
+   "license": "MIT",
+   "keywords": [
+      "react",
+      "prime",
+      "alert"
+   ],
+   "main": "dist/index.js",
+   "types": "dist/index.d.ts",
+   "scripts": {
+      "start": "tsup --watch",
+      "build": "tsup",
+      "setup": "pnpm i && cd site && pnpm i && cd .. && pnpm run link",
+      "link": "pnpm link ./site/node_modules/react && pnpm link ./site/node_modules/react-dom"
+   },
+   "engines": {
+      "node": ">=10",
+      "pnpm": ">=8.12.0"
+   },
+   "devDependencies": {
+      "@types/react": "^18.0.15",
+      "@types/react-dom": "^18.0.6",
+      "prettier": "^2.7.1",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "terser": "^5.31.3",
+      "tsup": "^6.7.0",
+      "typescript": "^5.0.4"
+   },
+   "peerDependencies": {
+      "react": ">=16",
+      "react-dom": ">=16"
+   }
+}
