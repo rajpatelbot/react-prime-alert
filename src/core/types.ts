@@ -77,3 +77,39 @@ export type AlertOptions = Pick<
  ** Handler function's return type.
  */
 export type AlertHandler = (options: AlertOptions) => string;
+
+/**
+ ** Represents an actions types for an alerts.
+ */
+export enum ActionType {
+   ADD_ALERT,
+   UPDATE_ALERT,
+   UPSERT_ALERT,
+   AUTO_CLOSE_ALERT,
+   REMOVE_ALERT,
+}
+
+/**
+ ** Represents an actions for an alert.
+ */
+export type Action =
+   | {
+        type: ActionType.ADD_ALERT;
+        alert: Alert;
+     }
+   | {
+        type: ActionType.UPDATE_ALERT;
+        alert: Partial<Alert>;
+     }
+   | {
+        type: ActionType.UPSERT_ALERT;
+        alert: Alert;
+     }
+   | {
+        type: ActionType.AUTO_CLOSE_ALERT;
+        alertId?: string;
+     }
+   | {
+        type: ActionType.REMOVE_ALERT;
+        alertId?: string;
+     };
