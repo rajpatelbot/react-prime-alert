@@ -1,5 +1,6 @@
 import { generateId } from './utils';
-import { Alert, AlertHandler, AlertOptions, AlertType } from './types';
+import { ActionType, Alert, AlertHandler, AlertOptions, AlertType } from './types';
+import { dispatch } from './actions';
 
 /**
  ** A function that will create a new alert.
@@ -9,11 +10,13 @@ import { Alert, AlertHandler, AlertOptions, AlertType } from './types';
 const createAlert = (options: AlertOptions): Alert => ({
    ...options,
    id: options.id || generateId(),
+   type: options.type || 'blank',
    duration: options.duration || 0,
    mode: 'light',
    size: 'base',
    variant: 'default',
    createdAt: Date.now(),
+   description: options.description,
 });
 
 /**
@@ -26,7 +29,8 @@ const createAlertHandler =
    (type: AlertType): AlertHandler =>
    (options: AlertOptions) => {
       const alert = createAlert({ ...options, type });
-      //TODO: Will dispatch the action with new alert.
+      console.log('Alert created successfully', alert);
+      dispatch({ type: ActionType.UPSERT_ALERT, alert });
       return alert.id;
    };
 

@@ -40,7 +40,7 @@ export interface Alert {
    size: AlertSize;
 
    header?: Renderable;
-   footer: Renderable;
+   footer?: Renderable;
 
    className?: string;
    style?: CSSProperties;
@@ -58,20 +58,14 @@ export type AlertProps = Pick<Alert, 'id' | 'mode' | 'size' | 'className' | 'sty
 /**
  ** Represents the options for the alert.
  */
-export type AlertOptions = Pick<
-   Alert,
-   | 'id'
-   | 'type'
-   | 'title'
-   | 'description'
-   | 'icon'
-   | 'header'
-   | 'footer'
-   | 'className'
-   | 'style'
-   | 'duration'
-   | 'createdAt'
->;
+export type AlertOptions = Partial<
+   Pick<
+      Alert,
+      'id' | 'type' | 'title' | 'icon' | 'header' | 'footer' | 'className' | 'style' | 'duration' | 'createdAt'
+   >
+> & {
+   description: string;
+};
 
 /**
  ** Handler function's return type.
