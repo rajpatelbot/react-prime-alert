@@ -50,10 +50,19 @@ export interface Alert {
    createdAt: number;
 }
 
+export type DefaultAlertOptions = AlertProps & {
+   [key in AlertType]?: AlertOptions;
+};
+
 /**
  ** Represents the props for the Alert component.
  */
-export type AlertProps = Pick<Alert, 'id' | 'mode' | 'size' | 'className' | 'style' | 'variant'>;
+
+export type PartialAlertProps = Partial<Pick<Alert, 'id' | 'type' | 'duration' | 'className' | 'style'>> & {
+   children?: Renderable;
+};
+
+export type AlertProps = Pick<Alert, 'mode' | 'size' | 'variant'> & PartialAlertProps;
 
 /**
  ** Represents the options for the alert.

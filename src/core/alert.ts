@@ -16,7 +16,6 @@ const createAlert = (options: AlertOptions): Alert => ({
    size: 'base',
    variant: 'default',
    createdAt: Date.now(),
-   description: options.description,
 });
 
 /**
@@ -27,9 +26,8 @@ const createAlert = (options: AlertOptions): Alert => ({
  */
 const createAlertHandler =
    (type: AlertType): AlertHandler =>
-   (options: AlertOptions) => {
+   (options: AlertOptions): string => {
       const alert = createAlert({ ...options, type });
-      console.log('Alert created successfully', alert);
       dispatch({ type: ActionType.UPSERT_ALERT, alert });
       return alert.id;
    };
@@ -77,6 +75,20 @@ alert.success = createAlertHandler('success');
  */
 alert.custom = createAlertHandler('custom');
 
-// TODO: Will have to handle close and dismiss actions here.
+/**
+ ** Action dispatched for auto closing the alert.
+ * @param alertId - The id of the alert to be auto closed.
+ */
+alert.autoClose = (alertId?: string): void => {
+   dispatch({ type: ActionType.AUTO_CLOSE_ALERT, alertId });
+};
+
+/**
+ ** Action dispatched for removing the alert.
+ * @param alertId - The id of the alert to be removed.
+ */
+alert.remove = (alertId?: string): void => {
+   dispatch({ type: ActionType.REMOVE_ALERT, alertId });
+};
 
 export { alert };

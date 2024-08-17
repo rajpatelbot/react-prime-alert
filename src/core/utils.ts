@@ -1,5 +1,5 @@
 /**
- ** Generates a random id.
+ ** Generates an incremental id.
  */
 export const generateId = ((): (() => string) => {
    let count = 0;

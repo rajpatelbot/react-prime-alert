@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Action, ActionType, Alert } from './types';
+import { Action, ActionType, Alert, AlertType, DefaultAlertOptions } from './types';
 
 interface State {
    alert: Alert | null;
@@ -51,10 +51,70 @@ const reducer = (state: State, action: Action): State => {
 };
 
 /**
- ** reducer: This function will handles actions by updating the state and notifying listeners of the state change.
+ ** dispatch: This function will handles actions by updating the state and notifying listeners of the state change.
  * @param action - The action to be performed on the state.
  */
 export const dispatch = (action: Action): void => {
    memoryState = reducer(memoryState, action);
    listeners.forEach((listener) => listener(memoryState));
+};
+
+/**
+ ** This object defines the default timeout for each alert type.
+ */
+export const defaultTimeout: {
+   [key in AlertType]: number;
+} = {
+   blank: 3000,
+   info: 3000,
+   warning: 3000,
+   error: 3000,
+   success: 3000,
+   custom: 3000,
+};
+
+/**
+ ** useStore: A custom hook that manages and returns the current state of the application, including dynamic alert configurations.
+ ** The hook subscribes to state updates and ensures that the state is re-rendered in the component.
+ ** It also computes and returns an alert object with customized options based on the current state and provided configuration.
+ *
+ * @param alertOptions - The configurable options for the alert system. This includes default alert options as well as type-specific settings.
+ *
+ * @returns The current state of the application, with a dynamically computed alert object that merges default options, type-specific settings, and current alert state.
+ */
+export const useStore = (alertOptions: DefaultAlertOptions): State => {
+   const [state, setState] = useState<State>(memoryState);
+
+   useEffect(() => {
+      listeners.push(setState);
+      return () => {
+         const index = listeners.indexOf(setState);
+         if (index > -1) {
+            listeners.splice(index, 1);
+         }
+      };
+   }, [state]);
+
+   const { alert } = state;
+   const alertType = alert?.type || 'blank';
+
+   const newAlert = {
+      ...alertOptions,
+      ...alertOptions[alertType],
+      ...alert,
+
+      duration:
+         alert?.duration || alertOptions.duration || alertOptions[alertType]?.duration || defaultTimeout[alertType],
+
+      style: {
+         ...alert?.style,
+         ...alertOptions.style,
+         ...alertOptions[alertType]?.style,
+      },
+   } as Alert;
+
+   return {
+      ...state,
+      alert: newAlert,
+   };
 };
