@@ -14,8 +14,8 @@
    "scripts": {
       "start": "tsup --watch",
       "build": "tsup",
-      "setup": "pnpm i && cd site && pnpm i && cd .. && pnpm run link",
-      "link": "pnpm link ./site/node_modules/react && pnpm link ./site/node_modules/react-dom"
+      "setup": "pnpm i && tsup && cd web && pnpm i && cd .. && pnpm run link && cd web && pnpm i",
+      "link": "pnpm link ./web/node_modules/react && pnpm link ./web/node_modules/react-dom"
    },
    "engines": {
       "node": ">=10",
