@@ -84,12 +84,13 @@ export const useStore = (alertOptions: DefaultAlertOptions): State => {
    const { alert } = state;
    const alertType = alert?.type || 'blank';
 
+   // Merge default and type-specific alert options together.
    const newAlert = {
       ...alertOptions,
       ...alertOptions[alertType],
       ...alert,
 
-      duration: alert?.duration || alertOptions.duration || alertOptions[alertType]?.duration,
+      duration: alert?.duration || alertOptions.duration || alertOptions[alertType]?.duration || 0,
 
       style: {
          ...alert?.style,
