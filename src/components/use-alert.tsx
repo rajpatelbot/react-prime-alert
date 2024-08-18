@@ -6,7 +6,7 @@ export const useAlert = (alertOptions: DefaultAlertOptions) => {
    const { alert } = useStore(alertOptions);
 
    useEffect(() => {
-      if (alert && alert.duration > 0) {
+      if (alert && alert.id && alert.duration > 0) {
          const timer = setTimeout(() => {
             dispatch({ type: ActionType.REMOVE_ALERT, alertId: alert.id });
          }, alert.duration);

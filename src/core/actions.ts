@@ -60,20 +60,6 @@ export const dispatch = (action: Action): void => {
 };
 
 /**
- ** This object defines the default timeout for each alert type.
- */
-export const defaultTimeout: {
-   [key in AlertType]: number;
-} = {
-   blank: 3000,
-   info: 3000,
-   warning: 3000,
-   error: 3000,
-   success: 3000,
-   custom: 3000,
-};
-
-/**
  ** useStore: A custom hook that manages and returns the current state of the application, including dynamic alert configurations.
  ** The hook subscribes to state updates and ensures that the state is re-rendered in the component.
  ** It also computes and returns an alert object with customized options based on the current state and provided configuration.
@@ -103,8 +89,7 @@ export const useStore = (alertOptions: DefaultAlertOptions): State => {
       ...alertOptions[alertType],
       ...alert,
 
-      duration:
-         alert?.duration || alertOptions.duration || alertOptions[alertType]?.duration || defaultTimeout[alertType],
+      duration: alert?.duration || alertOptions.duration || alertOptions[alertType]?.duration,
 
       style: {
          ...alert?.style,

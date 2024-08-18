@@ -7,6 +7,13 @@ export const PrimeAlert: React.FC<AlertProps> = (alertOptions: AlertProps) => {
 
    const { id, className, style } = alertOptions;
 
+   /**
+    ** Side effects handling
+    */
+   if (alert && !alert.id) {
+      return null;
+   }
+
    return (
       <div
          /**
