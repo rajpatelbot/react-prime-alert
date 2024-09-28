@@ -43,7 +43,7 @@ const Circle = styled('circle')`
    transform-origin: center;
 
    &.animate {
-      animation: ${drawCircle} 0.3s ease-in forwards;
+      animation: ${drawCircle} 0.2s ease-in forwards;
    }
 `;
 
@@ -56,8 +56,8 @@ const Check = styled('polyline')`
    stroke-linejoin: round;
 
    &.animate {
-      animation: ${drawCheck} 0.3s ease-in forwards;
-      animation-delay: 0.6s;
+      animation: ${drawCheck} 0.15s ease-in forwards;
+      animation-delay: 0.25s;
    }
 `;
 

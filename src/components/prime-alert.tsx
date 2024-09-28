@@ -69,7 +69,7 @@ const Alert = styled('div')`
    border-radius: 15px;
    box-shadow: 0 0 10px rgba(154, 154, 154, 0.3);
    z-index: 1001;
-   width: 400px;
+   width: 32em;
 
    &.zoomIn {
       animation: ${zoomIn} 0.3s ease-in-out forwards;

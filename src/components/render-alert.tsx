@@ -12,13 +12,12 @@ const Logo = styled('div')`
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-bottom: 20px;
-   margin-top: 20px;
+   margin-bottom: 25px;
    padding: 0 15px;
 `;
 
 const Header = styled('header')`
-   font-size: 20px;
+   font-size: 1.3em;
    font-weight: 500;
    text-align: center;
    border-radius: 15px 15px 0 0;
@@ -30,16 +29,17 @@ const AlertBody = styled('div')`
    padding: 20px;
 
    h1 {
-      font-size: 20px;
+      font-size: 1.4em;
       padding: 0 15px;
+      color: #525252;
       text-align: center;
       font-weight: 500;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
    }
 
    p {
       padding: 1px 15px;
-      font-size: 14px;
+      font-size: 1em;
       font-weight: 300;
       text-align: center;
       color: #525252;
@@ -56,7 +56,7 @@ const Footer = styled('footer')`
 
    button {
       padding: 5px 15px;
-      font-size: 14px;
+      font-size: 1em;
 
       &:first-child {
          border-radius: 7px;
@@ -81,7 +81,11 @@ export const RenderAlert = ({ alert, alertOptions }: RenderAlertProps) => {
       <>
          {alert?.header ? <Header>{alert?.header}</Header> : null}
          <AlertBody>
-            {alert?.icon ? <Logo>{IconType}</Logo> : null}
+            {/* {alert?.icon ? ( */}
+            <Logo>
+               <Success alert={alert} />
+            </Logo>
+            {/* ) : null} */}
             {alert?.title ? <h1>{alert?.title}</h1> : null}
             <p>{alert?.description}</p>
          </AlertBody>
