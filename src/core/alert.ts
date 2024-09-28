@@ -27,7 +27,7 @@ const createAlert = (options: AlertOptions): Alert => ({
 const createAlertHandler =
    (type: AlertType): AlertHandler =>
    (options: AlertOptions): string => {
-      const alert = createAlert({ ...options, type });
+      const alert = createAlert({ type, ...options });
       dispatch({ type: ActionType.UPSERT_ALERT, alert });
       return alert.id;
    };

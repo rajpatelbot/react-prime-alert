@@ -81,11 +81,7 @@ export const RenderAlert = ({ alert, alertOptions }: RenderAlertProps) => {
       <>
          {alert?.header ? <Header>{alert?.header}</Header> : null}
          <AlertBody>
-            {/* {alert?.icon ? ( */}
-            <Logo>
-               <Success alert={alert} />
-            </Logo>
-            {/* ) : null} */}
+            {alert?.icon ? <Logo>{alert?.icon}</Logo> : <Logo>{IconType}</Logo>}
             {alert?.title ? <h1>{alert?.title}</h1> : null}
             <p>{alert?.description}</p>
          </AlertBody>

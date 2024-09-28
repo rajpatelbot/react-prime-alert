@@ -57,7 +57,7 @@ const Check = styled('polyline')`
 
    &.animate {
       animation: ${drawCheck} 0.15s ease-in forwards;
-      animation-delay: 0.25s;
+      animation-delay: 0.28s;
    }
 `;
 
