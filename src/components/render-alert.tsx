@@ -1,10 +1,10 @@
 import { styled } from 'goober';
-import { Alert, AlertProps } from '../core/types';
-import Success from './alert-icons/success';
-import { useIconType } from '../hooks/use-icon-type';
+import { alert as coreAlert } from '../../src/core/alert';
+import { Alert as AlertType, AlertProps } from '../../src/core/types';
+import { useIconType } from '../../src/hooks/use-icon-type';
 
 interface RenderAlertProps {
-   alert: Alert | null;
+   alert: AlertType | null;
    alertOptions: AlertProps;
 }
 
@@ -52,29 +52,29 @@ const Footer = styled('footer')`
    align-items: center;
    padding: 15px;
    border-radius: 0 0 15px 15px;
-   background-color: #fcfcfc;
 
    button {
       padding: 5px 15px;
+      border-radius: 7px;
       font-size: 1em;
+   }
 
-      &:first-child {
-         border-radius: 7px;
-         color: rgb(0, 160, 0);
-         border: 1px solid rgb(0, 160, 0);
-         margin-right: 12px;
-      }
+   .secondary {
+      color: rgb(0, 160, 0);
+      border: 1px solid rgb(0, 160, 0);
+      margin-right: 12px;
+      border: 1px solid rgb(0, 160, 0);
+   }
 
-      &:last-child {
-         color: white;
-         border-radius: 7px;
-         background-color: rgb(0, 160, 0);
-         border: 1px solid rgb(0, 160, 0);
-      }
+   .primary {
+      color: white;
+      border-radius: 7px;
+      background-color: rgb(0, 160, 0);
+      border: 1px solid rgb(0, 160, 0);
    }
 `;
 
-export const RenderAlert = ({ alert, alertOptions }: RenderAlertProps) => {
+export const RenderAlert = ({ alert }: RenderAlertProps) => {
    const IconType = useIconType(alert);
 
    return (
@@ -86,8 +86,24 @@ export const RenderAlert = ({ alert, alertOptions }: RenderAlertProps) => {
             <p>{alert?.description}</p>
          </AlertBody>
          <Footer>
-            <button>Cancel</button>
-            <button>Confirm</button>
+            {alert?.buttons && alert?.buttons?.length > 0 ? (
+               alert?.buttons?.map((button) => (
+                  <button
+                     key={alert.id}
+                     type={`${button.type || 'button'}`}
+                     onClick={button.onClick}
+                     style={button.style}
+                     className={button.className && `${button.variant || 'primary'}`}
+                  >
+                     {button.label}
+                  </button>
+               ))
+            ) : (
+               //TODO: Option to pass style and className from outside.
+               <button type='button' className='primary' onClick={() => coreAlert.remove(alert?.id)}>
+                  Okay
+               </button>
+            )}
          </Footer>
       </>
    );

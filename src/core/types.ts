@@ -40,7 +40,15 @@ export interface Alert {
    size: AlertSize;
 
    header?: Renderable;
-   footer?: Renderable;
+
+   buttons?: {
+      label: string;
+      onClick: () => unknown;
+      type?: 'button' | 'submit' | 'reset';
+      variant?: 'primary' | 'secondary';
+      className?: string;
+      style?: CSSProperties;
+   }[];
 
    className?: string;
    style?: CSSProperties;
@@ -70,7 +78,7 @@ export type AlertProps = Pick<Alert, 'mode' | 'size' | 'variant'> & PartialAlert
 export type AlertOptions = Partial<
    Pick<
       Alert,
-      'id' | 'type' | 'title' | 'icon' | 'header' | 'footer' | 'className' | 'style' | 'duration' | 'createdAt'
+      'id' | 'type' | 'title' | 'icon' | 'header' | 'buttons' | 'className' | 'style' | 'duration' | 'createdAt'
    >
 > & {
    description: string;
